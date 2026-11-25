@@ -2,64 +2,222 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LAMMA - لَمّة</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAMMA - لمة</title>
+
+  <!-- ربط ملف التثبيت والأيقونة -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="icon" type="image/png" href="file_0000000009d54821099b962224466801e.png">
+  <link rel="apple-touch-icon" href="file_0000000009d54821099b962224466801e.png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .app-card {
+      width: 100%;
+      max-width: 440px;
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+    }
+    .logo {
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      object-fit: cover;
+      margin: 0 auto 12px;
+      display: block;
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: 28px;
+    }
+    .subtitle {
+      margin: 0 0 20px;
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .section-title {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 10px;
+      text-align: right;
+    }
+    .levels {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .level-btn {
+      padding: 10px 8px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #e2e8f0;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .level-btn.active {
+      background: #7c3aed;
+      border-color: #a78bfa;
+      color: #fff;
+    }
+    .scoreboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      background: #0f172a;
+      padding: 14px;
+      border-radius: 16px;
+      margin-bottom: 18px;
+    }
+    .score-num {
+      font-size: 24px;
+      font-weight: bold;
+      color: #38bdf8;
+      margin-top: 4px;
+    }
+    .status {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px dashed #475569;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 18px;
+      font-size: 14px;
+      color: #f1f5f9;
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .play-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .play-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
-  <main class="app">
-    <header>
-      <div class="logo">LAMMA<span>.</span></div>
-      <div class="avatar">👤</div>
-    </header>
+  <main class="app-card">
+    <img src="file_0000000009d54821099b962224466801e.png" alt="شعار تطبيق LAMMA" class="logo">
+    <h1>LAMMA</h1>
+    <p class="subtitle">ألعاب جماعية وتحديات بين الأصدقاء مع مواجهة الذكاء الاصطناعي واختيار مستوى الصعوبة واللعب بدون نت.</p>
 
-    <section class="welcome">
-      <p>أهلاً بك في عالم المرح</p>
-      <h1>اللّمّة أحلى <span>معاكم!</span></h1>
-      <p>اجمع أصحابك وابدأ التحدي.</p>
-    </section>
+    <div class="section-title">اختر مستوى الصعوبة:</div>
+    <div class="levels">
+      <button type="button" class="level-btn" data-level="easy">سهل</button>
+      <button type="button" class="level-btn active" data-level="medium">متوسط</button>
+      <button type="button" class="level-btn" data-level="hard">صعب</button>
+    </div>
 
-    <section class="actions">
-      <button class="primary" onclick="createRoom()">
-        🎮 إنشاء غرفة
-      </button>
-
-      <div class="join">
-        <input id="roomCode" placeholder="اكتب كود الغرفة">
-        <button onclick="joinRoom()">دخول</button>
+    <div class="scoreboard">
+      <div>
+        <div>نقاطك</div>
+        <div id="playerScore" class="score-num">0</div>
       </div>
-    </section>
-
-    <section class="games">
-      <h2>اختر لعبتك</h2>
-      <div class="game-card" onclick="chooseGame('ألغاز الذكاء')">
-        <span>🧠</span>
-        <div>
-          <h3>ألغاز الذكاء</h3>
-          <p>اختبر قوة تفكيرك</p>
-        </div>
+      <div>
+        <div>الذكاء الاصطناعي</div>
+        <div id="aiScore" class="score-num">0</div>
       </div>
+    </div>
 
-      <div class="game-card" onclick="chooseGame('خمن الكلمة')">
-        <span>💡</span>
-        <div>
-          <h3>خمن الكلمة</h3>
-          <p>هل تستطيع اكتشافها؟</p>
-        </div>
-      </div>
+    <div id="statusBox" class="status">جاهز للتحدي! اضغط «ابدأ جولة» للعب.</div>
 
-      <div class="game-card" onclick="chooseGame('تحدي السرعة')">
-        <span>⚡</span>
-        <div>
-          <h3>تحدي السرعة</h3>
-          <p>كن الأسرع بين أصحابك</p>
-        </div>
-      </div>
-    </section>
-
-    <footer>© 2026 LAMMA</footer>
+    <button type="button" id="playBtn" class="play-btn">ابدأ جولة</button>
   </main>
-  <script src="script.js"></script>
+
+  <!-- ربط محرك الذكاء الاصطناعي -->
+  <script src="ai.js"></script>
+
+  <script>
+    let playerScore = 0;
+    let aiScore = 0;
+
+    const playerScoreEl = document.getElementById("playerScore");
+    const aiScoreEl = document.getElementById("aiScore");
+    const statusBox = document.getElementById("statusBox");
+    const playBtn = document.getElementById("playBtn");
+    const levelButtons = document.querySelectorAll(".level-btn");
+
+    const levelNames = {
+      easy: "سهل",
+      medium: "متوسط",
+      hard: "صعب"
+    };
+
+    levelButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const chosenLevel = btn.dataset.level;
+        levelButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        if (window.LammaAI && typeof window.LammaAI.setDifficulty === "function") {
+          window.LammaAI.setDifficulty(chosenLevel);
+        }
+        statusBox.textContent = "تم اختيار المستوى: " + (levelNames[chosenLevel] || chosenLevel);
+      });
+    });
+
+    playBtn.addEventListener("click", () => {
+      playBtn.disabled = true;
+      const myPoints = Math.floor(Math.random() * 20) + 10;
+      playerScore += myPoints;
+      playerScoreEl.textContent = playerScore;
+      statusBox.textContent = "أحرزت +" + myPoints + " نقطة! دور الذكاء الاصطناعي يفكر...";
+
+      if (window.LammaAI && typeof window.LammaAI.playTurn === "function") {
+        window.LammaAI.playTurn((res) => {
+          const aiPts = res && typeof res.points === "number" ? res.points : 10;
+          aiScore += aiPts;
+          aiScoreEl.textContent = aiScore;
+          statusBox.textContent = "الذكاء الاصطناعي أضاف +" + aiPts + " نقطة!";
+          playBtn.disabled = false;
+        });
+      } else {
+        const fallbackPts = Math.floor(Math.random() * 15) + 5;
+        aiScore += fallbackPts;
+        aiScoreEl.textContent = aiScore;
+        statusBox.textContent = "الذكاء الاصطناعي أضاف +" + fallbackPts + " نقطة!";
+        playBtn.disabled = false;
+      }
+    });
+
+    // تشغيل ملف اللعب بدون نت (Service Worker)
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
+  </script>
 </body>
-                             </html>
-          
+      </html>
+      
