@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LAMMA - لَمّة</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div class="logo">LAMMA<span>.</span></div>
+      <div class="avatar">👤</div>
+    </header>
+
+    <section class="welcome">
+      <p>أهلاً بك في عالم المرح</p>
+      <h1>اللّمّة أحلى <span>معاكم!</span></h1>
+      <p>اجمع أصحابك وابدأ التحدي.</p>
+    </section>
+
+    <section class="actions">
+      <button class="primary" onclick="createRoom()">
+        🎮 إنشاء غرفة
+      </button>
+
+      <div class="join">
+        <input id="roomCode" placeholder="اكتب كود الغرفة">
+        <button onclick="joinRoom()">دخول</button>
+      </div>
+    </section>
+
+    <section class="games">
+      <h2>اختر لعبتك</h2>
+      <div class="game-card" onclick="chooseGame('ألغاز الذكاء')">
+        <span>🧠</span>
+        <div>
+          <h3>ألغاز الذكاء</h3>
+          <p>اختبر قوة تفكيرك</p>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="chooseGame('خمن الكلمة')">
+        <span>💡</span>
+        <div>
+          <h3>خمن الكلمة</h3>
+          <p>هل تستطيع اكتشافها؟</p>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="chooseGame('تحدي السرعة')">
+        <span>⚡</span>
+        <div>
+          <h3>تحدي السرعة</h3>
+          <p>كن الأسرع بين أصحابك</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>© 2026 LAMMA</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+                             </html>
+          
