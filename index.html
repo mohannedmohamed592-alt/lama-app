@@ -1,223 +1,699 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LAMMA - لمة</title>
-
-  <!-- ربط ملف التثبيت والأيقونة -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0f172a">
-  <link rel="icon" type="image/png" href="file_0000000009d54821099b962224466801e.png">
-  <link rel="apple-touch-icon" href="file_0000000009d54821099b962224466801e.png">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لَمّة - LAMMA</title>
   <style>
+    :root {
+      --bg: #0b1120;
+      --card: #111827;
+      --card-2: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #8b5cf6;
+      --accent-2: #06b6d4;
+      --good: #10b981;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
     * {
       box-sizing: border-box;
       font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
     }
+
     body {
       margin: 0;
       min-height: 100vh;
-      background: #0f172a;
-      color: #f8fafc;
+      background: radial-gradient(circle at top, #172554 0%, var(--bg) 60%);
+      color: var(--text);
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      gap: 14px;
+    }
+
+    .card {
+      background: rgba(17, 24, 39, 0.94);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .header {
       display: flex;
-      justify-content: center;
+      flex-wrap: wrap;
+      justify-content: space-between;
       align-items: center;
-      padding: 20px;
+      gap: 10px;
     }
-    .app-card {
-      width: 100%;
-      max-width: 440px;
-      background: #1e293b;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 24px;
-      text-align: center;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
     }
-    .logo {
-      width: 96px;
-      height: 96px;
-      border-radius: 22px;
-      object-fit: cover;
-      margin: 0 auto 12px;
-      display: block;
-      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
     }
-    h1 {
-      margin: 0 0 6px;
-      font-size: 28px;
-    }
-    .subtitle {
-      margin: 0 0 20px;
-      color: #cbd5e1;
+
+    .room-pill {
+      background: rgba(6, 182, 212, 0.14);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      color: #67e8f9;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: bold;
       font-size: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    input, select, button {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+
+    input, select {
+      background: var(--card-2);
+      color: var(--text);
+      flex: 1;
+      min-width: 120px;
+    }
+
+    button {
+      background: var(--card-2);
+      color: var(--text);
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.08s ease, opacity 0.2s ease;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #4f46e5);
+      border: none;
+    }
+
+    .btn-cyan {
+      background: linear-gradient(135deg, #0891b2, #0284c7);
+      border: none;
+    }
+
+    .btn-good {
+      background: var(--good);
+      color: #052e16;
+      border: none;
+    }
+
+    .btn-warn {
+      background: var(--warn);
+      color: #271700;
+      border: none;
+    }
+
+    .cats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .cat-btn.active {
+      background: var(--accent);
+      border-color: #c4b5fd;
+    }
+
+    .stage-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: var(--card-2);
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+    }
+
+    .timers-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .timer-card {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 6px 12px;
+      text-align: center;
+      min-width: 96px;
+    }
+
+    .timer-label {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .timer {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fde047;
+    }
+
+    .timer.ai-timer {
+      color: #67e8f9;
+    }
+
+    .timer.danger {
+      color: #fca5a5;
+    }
+
+    .challenge-box {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(139, 92, 246, 0.22);
+      color: #ddd6fe;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .question-text {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 6px 0 12px;
+      font-weight: 700;
+    }
+
+    .hint-box {
+      display: none;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #a7f3d0;
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .ai-log {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.28);
+      color: #bae6fd;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .players-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .player-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-2);
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      flex-wrap: wrap;
+    }
+
+    .player-item.active-turn {
+      border-color: var(--accent-2);
+      background: rgba(6, 182, 212, 0.12);
+    }
+
+    .player-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+      flex-wrap: wrap;
+    }
+
+    .rank {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+      font-size: 12px;
+      color: #38bdf8;
+    }
+
+    .ai-chip {
+      font-size: 11px;
+      background: rgba(139, 92, 246, 0.28);
+      color: #e9d5ff;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .status-chip {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.18);
+      color: #6ee7b7;
+    }
+
+    .status-chip.off {
+      background: rgba(148, 163, 184, 0.2);
+      color: #cbd5e1;
+    }
+
+    .score-tag {
+      font-weight: 800;
+      color: #34d399;
+      margin-left: 8px;
+    }
+
+    .dare-result {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #0f172a;
+      color: #fde68a;
+      font-weight: bold;
       line-height: 1.6;
     }
-    .section-title {
-      font-size: 14px;
-      color: #94a3b8;
-      margin-bottom: 10px;
-      text-align: right;
-    }
-    .levels {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-    .level-btn {
-      padding: 10px 8px;
-      border-radius: 12px;
-      border: 1px solid #334155;
-      background: #0f172a;
-      color: #e2e8f0;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .level-btn.active {
-      background: #7c3aed;
-      border-color: #a78bfa;
-      color: #fff;
-    }
-    .scoreboard {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      background: #0f172a;
-      padding: 14px;
-      border-radius: 16px;
-      margin-bottom: 18px;
-    }
-    .score-num {
-      font-size: 24px;
-      font-weight: bold;
-      color: #38bdf8;
-      margin-top: 4px;
-    }
-    .status {
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px dashed #475569;
-      border-radius: 14px;
-      padding: 12px;
-      margin-bottom: 18px;
-      font-size: 14px;
-      color: #f1f5f9;
-      min-height: 46px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .play-btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
-      color: #fff;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .play-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+
+    .small {
+      color: var(--muted);
+      font-size: 12px;
     }
   </style>
 </head>
 <body>
-  <main class="app-card">
-    <img src="file_0000000009d54821099b962224466801e.png" alt="شعار تطبيق LAMMA" class="logo">
-    <h1>LAMMA</h1>
-    <p class="subtitle">ألعاب جماعية وتحديات بين الأصدقاء مع مواجهة الذكاء الاصطناعي واختيار مستوى الصعوبة واللعب بدون نت.</p>
-
-    <div class="section-title">اختر مستوى الصعوبة:</div>
-    <div class="levels">
-      <button type="button" class="level-btn" data-level="easy">سهل</button>
-      <button type="button" class="level-btn active" data-level="medium">متوسط</button>
-      <button type="button" class="level-btn" data-level="hard">صعب</button>
-    </div>
-
-    <div class="scoreboard">
-      <div>
-        <div>نقاطك</div>
-        <div id="playerScore" class="score-num">0</div>
+  <div class="container">
+    <!-- الغرفة والدخول بالكود -->
+    <section class="card">
+      <div class="header">
+        <div class="brand">
+          <h1 id="roomTitle">غرفة: لَمّة</h1>
+          <p>تحديات جماعية ضد الذكاء الاصطناعي أو الأصدقاء • مؤقت للجولة ووقت للذكاء الاصطناعي</p>
+        </div>
+        <div id="roomCodeBadge" class="room-pill">كود الغرفة: LAMMA-100</div>
       </div>
-      <div>
-        <div>الذكاء الاصطناعي</div>
-        <div id="aiScore" class="score-num">0</div>
+
+      <div class="grid-2">
+        <div class="row">
+          <input id="joinCodeInput" type="text" placeholder="أدخل كود الغرفة للدخول (مثال: LAMMA-452)" />
+          <button id="joinRoomBtn" class="btn-cyan">دخول بالكود</button>
+          <button id="newRoomBtn" class="btn-primary">إنشاء غرفة لَمّة جديدة</button>
+        </div>
+
+        <div class="row">
+          <input id="playerNameInput" type="text" placeholder="اسم لاعب جديد..." />
+          <button id="addPlayerBtn" class="btn-good">إضافة لاعب</button>
+          <button id="toggleAIBtn">تبديل وجود الذكاء في الغرفة</button>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div id="statusBox" class="status">جاهز للتحدي! اضغط «ابدأ جولة» للعب.</div>
+    <!-- المراحل والجولات والمؤقت والتحديات -->
+    <section class="card">
+      <div class="stage-bar">
+        <div>
+          <strong id="stageLabel">المرحلة 1 (إحماء) - الجولة 1 من 5</strong>
+          <div class="small" id="turnLabel">الدور الحالي: —</div>
+        </div>
 
-    <button type="button" id="playBtn" class="play-btn">ابدأ جولة</button>
-  </main>
+        <div class="timers-box">
+          <div class="timer-card">
+            <div class="timer-label">وقت الجولة</div>
+            <div id="timerDisplay" class="timer">30ث</div>
+          </div>
 
-  <!-- ربط محرك الذكاء الاصطناعي -->
-  <script src="ai.js"></script>
+          <div class="timer-card">
+            <div class="timer-label">وقت الذكاء</div>
+            <div id="aiTimerDisplay" class="timer ai-timer">10ث</div>
+          </div>
 
+          <button id="startTimerBtn" class="btn-cyan">بدء المؤقت</button>
+          <button id="resetTimerBtn">إعادة</button>
+        </div>
+      </div>
+
+      <div class="cats" id="categoryButtons">
+        <button class="cat-btn active" data-cat="all">الكل</button>
+        <button class="cat-btn" data-cat="puzzle">ألغاز وذكاء</button>
+        <button class="cat-btn" data-cat="speed">سرعة وتركيز</button>
+        <button class="cat-btn" data-cat="words">كلمات</button>
+        <button class="cat-btn" data-cat="math">حساب</button>
+        <button class="cat-btn" data-cat="characters">تخمين شخصيات</button>
+      </div>
+
+      <div class="challenge-box">
+        <span id="challengeBadge" class="badge">ألغاز وذكاء • +15 نقطة</span>
+        <div id="questionText" class="question-text">اضغط «تحدي جديد» لبدء الجولة!</div>
+        <div id="hintBox" class="hint-box"></div>
+
+        <div class="row">
+          <button id="newChallengeBtn" class="btn-primary">تحدي جديد</button>
+          <button id="showAnswerBtn">إظهار الحل / التلميح</button>
+          <button id="awardPointBtn" class="btn-good">احتساب نقاط للاعب الحالي</button>
+          <button id="aiTurnBtn" class="btn-cyan">تشغيل دور الذكاء الاصطناعي</button>
+          <button id="nextRoundBtn">الجولة التالية</button>
+        </div>
+
+        <div id="aiLog" class="ai-log">الذكاء الاصطناعي موجود في الغرفة وجاهز للتحدي بوقت استجابة 10 ثوانٍ.</div>
+      </div>
+    </section>
+
+    <!-- ترتيب اللاعبين بالنقاط -->
+    <section class="card">
+      <div class="header" style="margin-bottom: 10px;">
+        <h2 style="margin: 0; font-size: 18px;">ترتيب اللاعبين بالنقاط</h2>
+        <span class="small">يعرض حالة وجود الذكاء الاصطناعي في الغرفة والترتيب التنازلي</span>
+      </div>
+      <div id="playersList" class="players-list"></div>
+    </section>
+
+    <!-- اختيار الفائز لتحدٍ ترفيهي خفيف للخاسر -->
+    <section class="card">
+      <h2 style="margin: 0 0 6px; font-size: 18px;">تحدي ترفيهي خفيف للخاسر</h2>
+      <p class="small" style="margin: 0 0 10px;">الفائز يختار اللاعب الخاسر ويحدد له تحدياً خفيفاً وممتعاً</p>
+
+      <div class="row">
+        <select id="winnerSelect"></select>
+        <select id="loserSelect"></select>
+        <select id="dareSelect">
+          <option value="random">تحدي عشوائي خفيف</option>
+          <option value="قل 3 كلمات تبدأ بنفس الحرف خلال 5 ثوانٍ">3 كلمات بنفس الحرف في 5 ثوانٍ</option>
+          <option value="تحدث بلهجة مختلفة لمدة 30 ثانية">تحدث بلهجة مختلفة لمدة 30 ثانية</option>
+          <option value="قلد صوت حيوان أو معلق رياضي">قلد صوت حيوان أو معلق رياضي</option>
+          <option value="اشرح معنى كلمة «لَمّة» بدون استخدام حرف الميم">اشرح «لَمّة» بدون حرف الميم</option>
+        </select>
+        <button id="applyDareBtn" class="btn-warn">إطلاق التحدي للخاسر</button>
+      </div>
+
+      <div id="dareResult" class="dare-result">لم يتم اختيار تحدٍ للخاسر بعد.</div>
+    </section>
+  </div>
+
+  <script src="./ai.js"></script>
   <script>
-    let playerScore = 0;
-    let aiScore = 0;
+    const CHALLENGES = [
+      {
+        cat: "puzzle",
+        label: "ألغاز وذكاء",
+        points: 15,
+        q: "ما هو الشيء الذي يكتب ولا يقرأ؟",
+        a: "القلم"
+      },
+      {
+        cat: "puzzle",
+        label: "ألغاز وذكاء",
+        points: 20,
+        q: "رقم من 3 أرقام؛ الآحاد ضعف المئات، والعشرات مجموعهما، ومجموع أرقامه 12. ما هو؟",
+        a: "264"
+      },
+      {
+        cat: "speed",
+        label: "سرعة وتركيز",
+        points: 15,
+        q: "عدّ من 1 إلى 10 بالعكس وتوقف عند 4 مع ذكر لون السماء في أقل من 7 ثوانٍ!",
+        a: "10, 9, 8, 7, 6, 5, 4 — أزرق"
+      },
+      {
+        cat: "speed",
+        label: "سرعة وتركيز",
+        points: 15,
+        q: "قل «بحر أزرق كبير» 3 مرات ورا بعض بسرعة بدون تعثر!",
+        a: "تحدي سرعة نطق وتركيز"
+      },
+      {
+        cat: "words",
+        label: "كلمات",
+        points: 15,
+        q: "اذكر 3 كلمات تُقرأ من اليمين لليسار ومن اليسار لليمين بنفس الشكل.",
+        a: "مثال: توت، خوخ، باب"
+      },
+      {
+        cat: "words",
+        label: "كلمات",
+        points: 20,
+        q: "كوّن أطول جملة مفيدة من 4 كلمات تبدأ حروفها الأولى بـ: (ل - م - س - ا).",
+        a: "مثال: لَمّة ممتعة سريعة الآن"
+      },
+      {
+        cat: "math",
+        label: "حساب",
+        points: 15,
+        q: "احسب ذهنياً: (18 × 3) + 16 = ؟",
+        a: "70"
+      },
+      {
+        cat: "math",
+        label: "حساب",
+        points: 20,
+        q: "معك 100 جنيه، صرفت ربعها ثم أضفت 25 جنيهاً. كم معك الآن؟",
+        a: "100 جنيه (صرفت 25 بقى 75 + 25 = 100)"
+      },
+      {
+        cat: "characters",
+        label: "تخمين شخصيات",
+        points: 20,
+        q: "شخصية خيالية شهيرة ترتدي عباءة وتطير ولها شعار (S) على الصدر، من هي؟",
+        a: "سوبرمان (Superman)"
+      },
+      {
+        cat: "characters",
+        label: "تخمين شخصيات",
+        points: 20,
+        q: "مخترع مشهور ارتبط اسمه بالمصباح الكهربائي، من هو؟",
+        a: "توماس إديسون"
+      }
+    ];
 
-    const playerScoreEl = document.getElementById("playerScore");
-    const aiScoreEl = document.getElementById("aiScore");
-    const statusBox = document.getElementById("statusBox");
-    const playBtn = document.getElementById("playBtn");
-    const levelButtons = document.querySelectorAll(".level-btn");
+    const RANDOM_DARES = [
+      "قل نكتة قصيرة أو موقف طريف في 15 ثانية.",
+      "صفّق بيديك 5 مرات ثم اذكر اسم فاكهة بحرف الألف فوراً.",
+      "تحدث بلهجة رسمية فصحى لمدة 20 ثانية.",
+      "اختر لقباً مضحكاً لنفسك حتى نهاية الجولة القادمة."
+    ];
 
-    const levelNames = {
-      easy: "سهل",
-      medium: "متوسط",
-      hard: "صعب"
+    let state = {
+      roomName: "لَمّة",
+      roomCode: "LAMMA-" + Math.floor(100 + Math.random() * 900),
+      players: [
+        { id: 1, name: "أنت", score: 0, isAI: false, inRoom: true },
+        { id: 2, name: "الذكاء الاصطناعي", score: 0, isAI: true, inRoom: true }
+      ],
+      turnIndex: 0,
+      round: 1,
+      maxRounds: 5,
+      selectedCat: "all",
+      currentChallenge: null,
+      secondsLeft: 30,
+      aiSecondsLeft: 10,
+      timerInterval: null,
+      aiTimerInterval: null,
+      aiBusy: false
     };
 
-    levelButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const chosenLevel = btn.dataset.level;
-        levelButtons.forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
+    const els = {
+      roomTitle: document.getElementById("roomTitle"),
+      roomCodeBadge: document.getElementById("roomCodeBadge"),
+      joinCodeInput: document.getElementById("joinCodeInput"),
+      joinRoomBtn: document.getElementById("joinRoomBtn"),
+      newRoomBtn: document.getElementById("newRoomBtn"),
+      playerNameInput: document.getElementById("playerNameInput"),
+      addPlayerBtn: document.getElementById("addPlayerBtn"),
+      toggleAIBtn: document.getElementById("toggleAIBtn"),
+      stageLabel: document.getElementById("stageLabel"),
+      turnLabel: document.getElementById("turnLabel"),
+      timerDisplay: document.getElementById("timerDisplay"),
+      aiTimerDisplay: document.getElementById("aiTimerDisplay"),
+      startTimerBtn: document.getElementById("startTimerBtn"),
+      resetTimerBtn: document.getElementById("resetTimerBtn"),
+      categoryButtons: document.getElementById("categoryButtons"),
+      challengeBadge: document.getElementById("challengeBadge"),
+      questionText: document.getElementById("questionText"),
+      hintBox: document.getElementById("hintBox"),
+      newChallengeBtn: document.getElementById("newChallengeBtn"),
+      showAnswerBtn: document.getElementById("showAnswerBtn"),
+      awardPointBtn: document.getElementById("awardPointBtn"),
+      aiTurnBtn: document.getElementById("aiTurnBtn"),
+      nextRoundBtn: document.getElementById("nextRoundBtn"),
+      aiLog: document.getElementById("aiLog"),
+      playersList: document.getElementById("playersList"),
+      winnerSelect: document.getElementById("winnerSelect"),
+      loserSelect: document.getElementById("loserSelect"),
+      dareSelect: document.getElementById("dareSelect"),
+      applyDareBtn: document.getElementById("applyDareBtn"),
+      dareResult: document.getElementById("dareResult")
+    };
 
-        if (window.LammaAI && typeof window.LammaAI.setDifficulty === "function") {
-          window.LammaAI.setDifficulty(chosenLevel);
+    function getStageName(round) {
+      if (round <= 2) return "المرحلة 1 (إحماء)";
+      if (round <= 4) return "المرحلة 2 (تحدي)";
+      return "المرحلة النهائية";
+    }
+
+    function getAIPlayer() {
+      return state.players.find((p) => p.isAI);
+    }
+
+    function getActivePlayers() {
+      return state.players.filter((p) => p.inRoom !== false);
+    }
+
+    function renderTimer() {
+      els.timerDisplay.textContent = state.secondsLeft + "ث";
+      els.timerDisplay.classList.toggle("danger", state.secondsLeft <= 7);
+
+      els.aiTimerDisplay.textContent = state.aiSecondsLeft + "ث";
+      els.aiTimerDisplay.classList.toggle("danger", state.aiSecondsLeft <= 3);
+    }
+
+    function stopTimers() {
+      if (state.timerInterval) {
+        clearInterval(state.timerInterval);
+        state.timerInterval = null;
+      }
+      if (state.aiTimerInterval) {
+        clearInterval(state.aiTimerInterval);
+        state.aiTimerInterval = null;
+      }
+    }
+
+    function startRoundTimer() {
+      if (state.timerInterval) clearInterval(state.timerInterval);
+      if (state.secondsLeft <= 0) state.secondsLeft = 30;
+      renderTimer();
+      state.timerInterval = setInterval(() => {
+        state.secondsLeft -= 1;
+        renderTimer();
+        if (state.secondsLeft <= 0) {
+          clearInterval(state.timerInterval);
+          state.timerInterval = null;
+          els.questionText.insertAdjacentHTML("beforeend", ' <span style="color:#fca5a5;">(انتهى وقت الجولة!)</span>');
         }
-        statusBox.textContent = "تم اختيار المستوى: " + (levelNames[chosenLevel] || chosenLevel);
-      });
-    });
+      }, 1000);
+    }
 
-    playBtn.addEventListener("click", () => {
-      playBtn.disabled = true;
-      const myPoints = Math.floor(Math.random() * 20) + 10;
-      playerScore += myPoints;
-      playerScoreEl.textContent = playerScore;
-      statusBox.textContent = "أحرزت +" + myPoints + " نقطة! دور الذكاء الاصطناعي يفكر...";
+    function resetTimers() {
+      stopTimers();
+      state.secondsLeft = 30;
+      state.aiSecondsLeft = 10;
+      renderTimer();
+    }
+
+    function pickChallenge() {
+      const pool = state.selectedCat === "all"
+        ? CHALLENGES
+        : CHALLENGES.filter((c) => c.cat === state.selectedCat);
+
+      const chosen = pool[Math.floor(Math.random() * pool.length)] || CHALLENGES[0];
+      state.currentChallenge = chosen;
+      els.challengeBadge.textContent = `${chosen.label} • +${chosen.points} نقطة`;
+      els.questionText.textContent = chosen.q;
+      els.hintBox.style.display = "none";
+      els.hintBox.textContent = "الإجابة / الحل: " + chosen.a;
+      resetTimers();
+    }
+
+    function runAITurn() {
+      const aiPlayer = getAIPlayer();
+      if (!aiPlayer || aiPlayer.inRoom === false) {
+        els.aiLog.textContent = "الذكاء الاصطناعي غير موجود في الغرفة حالياً. اضغط «تبديل وجود الذكاء في الغرفة» لإدخاله.";
+        return;
+      }
+      if (state.aiBusy) return;
+
+      state.aiBusy = true;
+      els.aiTurnBtn.disabled = true;
+      state.aiSecondsLeft = 10;
+      renderTimer();
+
+      const basePts = state.currentChallenge ? state.currentChallenge.points : 15;
+      const hitChance = Math.random();
+      const earned = hitChance >= 0.25 ? basePts : Math.max(5, Math.floor(basePts / 2));
+
+      els.aiLog.textContent = `الذكاء الاصطناعي يفكر داخل وقته المخصص (${state.aiSecondsLeft}ث)...`;
+
+      if (state.aiTimerInterval) clearInterval(state.aiTimerInterval);
+      state.aiTimerInterval = setInterval(() => {
+        state.aiSecondsLeft -= 1;
+        renderTimer();
+        if (state.aiSecondsLeft <= 0) {
+          clearInterval(state.aiTimerInterval);
+          state.aiTimerInterval = null;
+        }
+      }, 1000);
+
+      const finishAI = (pts) => {
+        if (state.aiTimerInterval) {
+          clearInterval(state.aiTimerInterval);
+          state.aiTimerInterval = null;
+        }
+        const spentSec = Math.max(1, 10 - state.aiSecondsLeft);
+        aiPlayer.score += pts;
+        const ansText = state.currentChallenge ? ` | الحل: ${state.currentChallenge.a}` : "";
+        els.aiLog.textContent = `الذكاء الاصطناعي رد خلال ${spentSec}ث وأضاف +${pts} نقطة${ansText}`;
+        state.aiBusy = false;
+        els.aiTurnBtn.disabled = false;
+        renderPlayersAndSelectors();
+      };
 
       if (window.LammaAI && typeof window.LammaAI.playTurn === "function") {
-        window.LammaAI.playTurn((res) => {
-          const aiPts = res && typeof res.points === "number" ? res.points : 10;
-          aiScore += aiPts;
-          aiScoreEl.textContent = aiScore;
-          statusBox.textContent = "الذكاء الاصطناعي أضاف +" + aiPts + " نقطة!";
-          playBtn.disabled = false;
-        });
-      } else {
-        const fallbackPts = Math.floor(Math.random() * 15) + 5;
-        aiScore += fallbackPts;
-        aiScoreEl.textContent = aiScore;
-        statusBox.textContent = "الذكاء الاصطناعي أضاف +" + fallbackPts + " نقطة!";
-        playBtn.disabled = false;
-      }
-    });
-
-    // تشغيل ملف اللعب بدون نت (Service Worker)
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch(() => {});
-      });
-    }
-  </script>
-</body>
-      </html>
+        try {
+          window.LammaAI.playTurn((res) => {
+            const customPts = res && typeof res.points === "number" ? res.points : earned;
+            setTimeout(() => finishAI(customPts), 900);
+          });
+          return;
+        } catch (_) {}
       
