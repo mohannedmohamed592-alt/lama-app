@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>لَمّة - LAMMA</title>
+  <link rel="manifest" href="./lamma.webmanifest">
+  <meta name="theme-color" content="#0b1120">
   <style>
     :root {
       --bg: #0b1120;
@@ -33,7 +35,7 @@
     }
 
     .container {
-      max-width: 860px;
+      max-width: 880px;
       margin: 0 auto;
       display: grid;
       gap: 14px;
@@ -87,6 +89,7 @@
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     input, select, button {
@@ -100,7 +103,14 @@
       background: var(--card-2);
       color: var(--text);
       flex: 1;
-      min-width: 120px;
+      min-width: 110px;
+    }
+
+    .time-input {
+      max-width: 100px;
+      min-width: 80px;
+      text-align: center;
+      font-weight: bold;
     }
 
     button {
@@ -163,13 +173,26 @@
       background: var(--card-2);
       padding: 12px 14px;
       border-radius: 14px;
+      margin-bottom: 10px;
+    }
+
+    .admin-timers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      border-radius: 14px;
       margin-bottom: 12px;
+      font-size: 13px;
     }
 
     .timers-box {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
@@ -341,7 +364,7 @@
       <div class="header">
         <div class="brand">
           <h1 id="roomTitle">غرفة: لَمّة</h1>
-          <p>تحديات جماعية ضد الذكاء الاصطناعي أو الأصدقاء • مؤقت للجولة ووقت للذكاء الاصطناعي</p>
+          <p>تحديات جماعية ضد الذكاء الاصطناعي أو الأصدقاء • الوقت باختيار المستخدم أو الأدمن</p>
         </div>
         <div id="roomCodeBadge" class="room-pill">كود الغرفة: LAMMA-100</div>
       </div>
@@ -361,7 +384,7 @@
       </div>
     </section>
 
-    <!-- المراحل والجولات والمؤقت والتحديات -->
+    <!-- المراحل والجولات وضبط الأوقات حسب مزاج المستخدم أو الأدمن -->
     <section class="card">
       <div class="stage-bar">
         <div>
@@ -372,17 +395,30 @@
         <div class="timers-box">
           <div class="timer-card">
             <div class="timer-label">وقت الجولة</div>
-            <div id="timerDisplay" class="timer">30ث</div>
+            <div id="timerDisplay" class="timer">0ث</div>
           </div>
 
           <div class="timer-card">
             <div class="timer-label">وقت الذكاء</div>
-            <div id="aiTimerDisplay" class="timer ai-timer">10ث</div>
+            <div id="aiTimerDisplay" class="timer ai-timer">0ث</div>
           </div>
 
           <button id="startTimerBtn" class="btn-cyan">بدء المؤقت</button>
           <button id="resetTimerBtn">إعادة</button>
         </div>
+      </div>
+
+      <div class="admin-timers">
+        <span style="font-weight:bold;">اختيار الوقت على مزاجك (بالثواني):</span>
+        <label class="row" style="gap:4px;">
+          <span>وقت الجولة:</span>
+          <input id="roundDurationInput" class="time-input" type="number" min="1" placeholder="مثلاً 25" />
+        </label>
+        <label class="row" style="gap:4px;">
+          <span>وقت الذكاء:</span>
+          <input id="aiDurationInput" class="time-input" type="number" min="1" placeholder="مثلاً 8" />
+        </label>
+        <button id="applyTimesBtn" class="btn-warn">اعتماد الوقت</button>
       </div>
 
       <div class="cats" id="categoryButtons">
@@ -396,7 +432,7 @@
 
       <div class="challenge-box">
         <span id="challengeBadge" class="badge">ألغاز وذكاء • +15 نقطة</span>
-        <div id="questionText" class="question-text">اضغط «تحدي جديد» لبدء الجولة!</div>
+        <div id="questionText" class="question-text">اكتب الوقت اللي تحبه ثم اضغط «تحدي جديد» لبدء الجولة!</div>
         <div id="hintBox" class="hint-box"></div>
 
         <div class="row">
@@ -407,7 +443,7 @@
           <button id="nextRoundBtn">الجولة التالية</button>
         </div>
 
-        <div id="aiLog" class="ai-log">الذكاء الاصطناعي موجود في الغرفة وجاهز للتحدي بوقت استجابة 10 ثوانٍ.</div>
+        <div id="aiLog" class="ai-log">اختر وقت الجولة ووقت الذكاء الاصطناعي بنفسك من الأعلى واضغط «اعتماد الوقت».</div>
       </div>
     </section>
 
@@ -463,7 +499,7 @@
         cat: "speed",
         label: "سرعة وتركيز",
         points: 15,
-        q: "عدّ من 1 إلى 10 بالعكس وتوقف عند 4 مع ذكر لون السماء في أقل من 7 ثوانٍ!",
+        q: "عدّ من 1 إلى 10 بالعكس وتوقف عند 4 مع ذكر لون السماء بسرعة!",
         a: "10, 9, 8, 7, 6, 5, 4 — أزرق"
       },
       {
@@ -536,8 +572,10 @@
       maxRounds: 5,
       selectedCat: "all",
       currentChallenge: null,
-      secondsLeft: 30,
-      aiSecondsLeft: 10,
+      roundDuration: null,
+      aiDuration: null,
+      secondsLeft: 0,
+      aiSecondsLeft: 0,
       timerInterval: null,
       aiTimerInterval: null,
       aiBusy: false
@@ -556,6 +594,9 @@
       turnLabel: document.getElementById("turnLabel"),
       timerDisplay: document.getElementById("timerDisplay"),
       aiTimerDisplay: document.getElementById("aiTimerDisplay"),
+      roundDurationInput: document.getElementById("roundDurationInput"),
+      aiDurationInput: document.getElementById("aiDurationInput"),
+      applyTimesBtn: document.getElementById("applyTimesBtn"),
       startTimerBtn: document.getElementById("startTimerBtn"),
       resetTimerBtn: document.getElementById("resetTimerBtn"),
       categoryButtons: document.getElementById("categoryButtons"),
@@ -592,10 +633,10 @@
 
     function renderTimer() {
       els.timerDisplay.textContent = state.secondsLeft + "ث";
-      els.timerDisplay.classList.toggle("danger", state.secondsLeft <= 7);
+      els.timerDisplay.classList.toggle("danger", state.secondsLeft > 0 && state.secondsLeft <= 5);
 
       els.aiTimerDisplay.textContent = state.aiSecondsLeft + "ث";
-      els.aiTimerDisplay.classList.toggle("danger", state.aiSecondsLeft <= 3);
+      els.aiTimerDisplay.classList.toggle("danger", state.aiSecondsLeft > 0 && state.aiSecondsLeft <= 3);
     }
 
     function stopTimers() {
@@ -609,9 +650,36 @@
       }
     }
 
+    function readUserTimes() {
+      const rVal = parseInt(els.roundDurationInput.value, 10);
+      const aVal = parseInt(els.aiDurationInput.value, 10);
+
+      if (!Number.isNaN(rVal) && rVal > 0) {
+        state.roundDuration = rVal;
+        state.secondsLeft = rVal;
+      }
+      if (!Number.isNaN(aVal) && aVal > 0) {
+        state.aiDuration = aVal;
+        state.aiSecondsLeft = aVal;
+      }
+    }
+
+    function applyAdminTimes() {
+      readUserTimes();
+      stopTimers();
+      renderTimer();
+      const rTxt = state.roundDuration ? `${state.roundDuration}ث` : "لم يُحدد بعد";
+      const aTxt = state.aiDuration ? `${state.aiDuration}ث` : "لم يُحدد بعد";
+      els.aiLog.textContent = `تم اعتماد الوقت باختيارك: وقت الجولة (${rTxt}) • وقت الذكاء (${aTxt}).`;
+    }
+
     function startRoundTimer() {
+      readUserTimes();
+      if (!state.secondsLeft || state.secondsLeft <= 0) {
+        els.aiLog.textContent = "اكتب وقت الجولة أولاً في خانة «وقت الجولة» ثم اضغط بدء المؤقت.";
+        return;
+      }
       if (state.timerInterval) clearInterval(state.timerInterval);
-      if (state.secondsLeft <= 0) state.secondsLeft = 30;
       renderTimer();
       state.timerInterval = setInterval(() => {
         state.secondsLeft -= 1;
@@ -619,81 +687,18 @@
         if (state.secondsLeft <= 0) {
           clearInterval(state.timerInterval);
           state.timerInterval = null;
-          els.questionText.insertAdjacentHTML("beforeend", ' <span style="color:#fca5a5;">(انتهى وقت الجولة!)</span>');
+          els.questionText.insertAdjacentHTML("beforeend", ' <span style="color:#fca5a5;">(انتهى الوقت الذي حددته!)</span>');
         }
       }, 1000);
     }
 
     function resetTimers() {
       stopTimers();
-      state.secondsLeft = 30;
-      state.aiSecondsLeft = 10;
+      state.secondsLeft = state.roundDuration || 0;
+      state.aiSecondsLeft = state.aiDuration || 0;
       renderTimer();
     }
 
     function pickChallenge() {
       const pool = state.selectedCat === "all"
-        ? CHALLENGES
-        : CHALLENGES.filter((c) => c.cat === state.selectedCat);
-
-      const chosen = pool[Math.floor(Math.random() * pool.length)] || CHALLENGES[0];
-      state.currentChallenge = chosen;
-      els.challengeBadge.textContent = `${chosen.label} • +${chosen.points} نقطة`;
-      els.questionText.textContent = chosen.q;
-      els.hintBox.style.display = "none";
-      els.hintBox.textContent = "الإجابة / الحل: " + chosen.a;
-      resetTimers();
-    }
-
-    function runAITurn() {
-      const aiPlayer = getAIPlayer();
-      if (!aiPlayer || aiPlayer.inRoom === false) {
-        els.aiLog.textContent = "الذكاء الاصطناعي غير موجود في الغرفة حالياً. اضغط «تبديل وجود الذكاء في الغرفة» لإدخاله.";
-        return;
-      }
-      if (state.aiBusy) return;
-
-      state.aiBusy = true;
-      els.aiTurnBtn.disabled = true;
-      state.aiSecondsLeft = 10;
-      renderTimer();
-
-      const basePts = state.currentChallenge ? state.currentChallenge.points : 15;
-      const hitChance = Math.random();
-      const earned = hitChance >= 0.25 ? basePts : Math.max(5, Math.floor(basePts / 2));
-
-      els.aiLog.textContent = `الذكاء الاصطناعي يفكر داخل وقته المخصص (${state.aiSecondsLeft}ث)...`;
-
-      if (state.aiTimerInterval) clearInterval(state.aiTimerInterval);
-      state.aiTimerInterval = setInterval(() => {
-        state.aiSecondsLeft -= 1;
-        renderTimer();
-        if (state.aiSecondsLeft <= 0) {
-          clearInterval(state.aiTimerInterval);
-          state.aiTimerInterval = null;
-        }
-      }, 1000);
-
-      const finishAI = (pts) => {
-        if (state.aiTimerInterval) {
-          clearInterval(state.aiTimerInterval);
-          state.aiTimerInterval = null;
-        }
-        const spentSec = Math.max(1, 10 - state.aiSecondsLeft);
-        aiPlayer.score += pts;
-        const ansText = state.currentChallenge ? ` | الحل: ${state.currentChallenge.a}` : "";
-        els.aiLog.textContent = `الذكاء الاصطناعي رد خلال ${spentSec}ث وأضاف +${pts} نقطة${ansText}`;
-        state.aiBusy = false;
-        els.aiTurnBtn.disabled = false;
-        renderPlayersAndSelectors();
-      };
-
-      if (window.LammaAI && typeof window.LammaAI.playTurn === "function") {
-        try {
-          window.LammaAI.playTurn((res) => {
-            const customPts = res && typeof res.points === "number" ? res.points : earned;
-            setTimeout(() => finishAI(customPts), 900);
-          });
-          return;
-        } catch (_) {}
-      
+    
