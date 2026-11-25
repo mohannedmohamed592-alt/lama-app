@@ -1,0 +1,163 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background: #0f172a;
+  color: #f8fafc;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.app {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.logo span {
+  color: #f59e0b;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1e293b;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+}
+
+.welcome p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.welcome h1 {
+  font-size: 2rem;
+  margin: 6px 0;
+  line-height: 1.25;
+}
+
+.welcome h1 span {
+  color: #38bdf8;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button.primary {
+  background: linear-gradient(135deg, #f59e0b, #ea580c);
+  color: #fff;
+}
+
+.join {
+  display: flex;
+  gap: 8px;
+}
+
+.join input {
+  flex: 1;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  padding: 12px 14px;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.join input:focus {
+  border-color: #38bdf8;
+}
+
+.join button {
+  background: #38bdf8;
+  color: #0f172a;
+}
+
+.games {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.games h2 {
+  font-size: 1.15rem;
+  color: #e2e8f0;
+}
+
+.game-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.game-card:hover {
+  border-color: #f59e0b;
+  transform: translateY(-2px);
+}
+
+.game-card span {
+  font-size: 1.7rem;
+}
+
+.game-card h3 {
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.game-card p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+footer {
+  text-align: center;
+  color: #64748b;
+  font-size: 0.85rem;
+  padding-top: 8px;
+  }
+    
